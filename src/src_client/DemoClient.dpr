@@ -2,7 +2,7 @@ program DemoClient;
 
 uses
   Vcl.Forms,
-  UPrincipal in 'UPrincipal.pas' {Form2},
+  UPrincipal in 'UPrincipal.pas' {FrmPrincipal},
   UEntidades in '..\comum\UEntidades.pas',
   UAPIClient in 'UAPIClient.pas';
 
@@ -11,6 +11,6 @@ uses
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm2, Form2);
+  Application.CreateForm(TFrmPrincipal, FrmPrincipal);
   Application.Run;
 end.

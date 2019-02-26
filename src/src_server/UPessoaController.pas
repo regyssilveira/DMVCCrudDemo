@@ -191,18 +191,6 @@ begin
   SetCache(300);
 end;
 
-procedure TPessoaController.DeletePessoa(const AId: Integer);
-var
-  CountApagados: Integer;
-begin
-  CountApagados := FPessoaService.Delete(AId);
-
-  if CountApagados > 0 then
-    Render(200, Format('Apagados "%d" cliente(s) com sucesso para o Id: "%d"', [CountApagados, AId]))
-  else
-    raise EDatabaseError.CreateFmt('Nenhum cliente foi apagado para o ID: "%d"', [AId]);
-end;
-
 procedure TPessoaController.CreatePessoa;
 var
   oPessoa: TPessoa;
@@ -226,10 +214,32 @@ begin
     oPessoa.Id := Aid;
     FPessoaService.Update(oPessoa);
 
+    // remover do cache
+    SetCacheKey('cache::pessoa::' + AId.ToString);
+    SetCache(0);
+
     Render(200, 'Pessoa atualizada com sucesso');
   finally
     oPessoa.Free;
   end;
+end;
+
+procedure TPessoaController.DeletePessoa(const AId: Integer);
+var
+  CountApagados: Integer;
+begin
+  CountApagados := FPessoaService.Delete(AId);
+
+  if CountApagados > 0 then
+  begin
+    Render(200, Format('Apagados "%d" cliente(s) com sucesso para o Id: "%d"', [CountApagados, AId]));
+
+    // remover do cache
+    SetCacheKey('cache::pessoa::' + AId.ToString);
+    SetCache(0);
+  end
+  else
+    raise EDatabaseError.CreateFmt('Nenhum cliente foi apagado para o ID: "%d"', [AId]);
 end;
 
 end.

@@ -105,7 +105,7 @@
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="UPrincipal.pas">
-            <Form>Form2</Form>
+            <Form>FrmPrincipal</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="..\comum\UEntidades.pas"/>
