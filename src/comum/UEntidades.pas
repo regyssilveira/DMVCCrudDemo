@@ -13,6 +13,7 @@ Type
     FDescricao: string;
     FId: string;
   public
+    [MVCColumn('UF')]
     property Id: string        read FId        write FId;
     property Descricao: string read FDescricao write FDescricao;
   end;

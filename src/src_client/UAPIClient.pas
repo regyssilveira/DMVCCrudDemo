@@ -179,7 +179,7 @@ begin
       for oItem in oArray do
       begin
         ADataset.Append;
-        for I := 0 to oItem.Count - 1do
+        for I := 0 to oItem.Count - 1 do
         begin
           Campo := ADataset.FindField(oItem.Names[I]);
           if Campo <> nil then
