@@ -9,7 +9,7 @@
         <Projects Include="src_server\isapi\ServerDemoISAPI.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="src_client\DemoClient.dproj">
+        <Projects Include="src_client_vcl\DemoClient.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -39,13 +39,13 @@
         <MSBuild Projects="src_server\isapi\ServerDemoISAPI.dproj" Targets="Make"/>
     </Target>
     <Target Name="DemoClient">
-        <MSBuild Projects="src_client\DemoClient.dproj"/>
+        <MSBuild Projects="src_client_vcl\DemoClient.dproj"/>
     </Target>
     <Target Name="DemoClient:Clean">
-        <MSBuild Projects="src_client\DemoClient.dproj" Targets="Clean"/>
+        <MSBuild Projects="src_client_vcl\DemoClient.dproj" Targets="Clean"/>
     </Target>
     <Target Name="DemoClient:Make">
-        <MSBuild Projects="src_client\DemoClient.dproj" Targets="Make"/>
+        <MSBuild Projects="src_client_vcl\DemoClient.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
         <CallTarget Targets="ServerDemoConsole;ServerDemoISAPI;DemoClient"/>
