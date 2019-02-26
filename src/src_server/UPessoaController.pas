@@ -146,7 +146,7 @@ begin
     Exit;
 
   Render<TUF>(FUFService.GetAll);
-  SetCache(600);   // expirar após 600 segundos (10 minutos)
+  SetCache(120);   // expirar após 2 MINUTOS
 end;
 
 procedure TPessoaController.GetBairros;
@@ -156,7 +156,7 @@ begin
     Exit;
 
   Render<TBairro>(FBairroService.GetAll);
-  SetCache(600);
+  SetCache(120);
 end;
 
 procedure TPessoaController.GetPessoas;
@@ -167,7 +167,7 @@ begin
     Exit;
 
   Render<TPessoa>(FPessoaService.GetAll);
-  SetCache(600);
+  SetCache(120);
 end;
 
 procedure TPessoaController.GetPessoasPorBairro(const ABairro: string);
@@ -178,7 +178,7 @@ begin
     Exit;
 
   Render<TPessoa>(FPessoaService.GetByBairro(ABairro));
-  SetCache(600);
+  SetCache(120);
 end;
 
 procedure TPessoaController.GetPessoa(const AId: Integer);
@@ -188,7 +188,7 @@ begin
     Exit;
 
   Render(FPessoaService.GetById(AId));
-  SetCache(300);
+  SetCache(120);
 end;
 
 procedure TPessoaController.CreatePessoa;
