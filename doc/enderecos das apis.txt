@@ -1,0 +1,22 @@
+usuario : admin
+senha   : admin
+
+informações do servidor
+[GET]    http://localhost:8080/system/describeserver.info
+[GET]    http://localhost:8080/system/describeplatform.info
+[GET]    http://localhost:8080/system/serverconfig.info
+
+consumo da api
+[GET]    http://localhost:8080/api
+[GET]    http://localhost:8080/api/uf
+[GET]    http://localhost:8080/api/bairro
+
+[GET]    http://localhost:8080/api/pessoa
+[GET]    http://localhost:8080/api/pessoa/1 (1=codigo)
+[GET]    http://localhost:8080/api/pessoa?bairro=ipiranga
+
+[DELETE] http://localhost:8080/api/pessoa/1
+
+[UPDATE] http://localhost:8080/api/pessoa/1 (enviar no body o json das alterações)
+
+[POST]   http://localhost:8080/api/pessoa   (enviar no body o json com os dados do cliente)

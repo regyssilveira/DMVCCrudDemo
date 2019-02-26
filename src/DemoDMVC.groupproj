@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{979C490B-6EE9-48B5-9DF3-89CD0888CD12}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="src_server\console\ServerDemoConsole.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="src_server\isapi\ServerDemoISAPI.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="src_client\DemoClient.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="ServerDemoConsole">
+        <MSBuild Projects="src_server\console\ServerDemoConsole.dproj"/>
+    </Target>
+    <Target Name="ServerDemoConsole:Clean">
+        <MSBuild Projects="src_server\console\ServerDemoConsole.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ServerDemoConsole:Make">
+        <MSBuild Projects="src_server\console\ServerDemoConsole.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="ServerDemoISAPI">
+        <MSBuild Projects="src_server\isapi\ServerDemoISAPI.dproj"/>
+    </Target>
+    <Target Name="ServerDemoISAPI:Clean">
+        <MSBuild Projects="src_server\isapi\ServerDemoISAPI.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="ServerDemoISAPI:Make">
+        <MSBuild Projects="src_server\isapi\ServerDemoISAPI.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="DemoClient">
+        <MSBuild Projects="src_client\DemoClient.dproj"/>
+    </Target>
+    <Target Name="DemoClient:Clean">
+        <MSBuild Projects="src_client\DemoClient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="DemoClient:Make">
+        <MSBuild Projects="src_client\DemoClient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="ServerDemoConsole;ServerDemoISAPI;DemoClient"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="ServerDemoConsole:Clean;ServerDemoISAPI:Clean;DemoClient:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="ServerDemoConsole:Make;ServerDemoISAPI:Make;DemoClient:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
