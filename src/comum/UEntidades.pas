@@ -4,6 +4,7 @@ interface
 
 uses
   System.Classes,
+  System.Generics.Collections,
   MVCFramework.Serializer.Commons;
 
 Type
@@ -29,6 +30,25 @@ Type
     property Descricao: string read FDescricao write FDescricao;
   end;
 
+  TPessoaTelefone = class
+  private
+    FContato: string;
+    FTelefone: string;
+  public
+    [MVCColumn('telefone')]
+    property Telefone: string read FTelefone write FTelefone;
+
+    [MVCColumn('contato')]
+    property Contato: string read FContato write FContato;
+  end;
+
+  TPessoaTelefones = class(TObjectList<TPessoaTelefone>)
+  private
+
+  public
+    function Add: TPessoaTelefone; overload;
+  end;
+
   [MVCNameCaseAttribute(ncLowerCase)]
   TPessoa = class
   private
@@ -40,7 +60,11 @@ Type
     Fnome: string;
     Fcidade: string;
     Fendereco: string;
+    FTelefones: TPessoaTelefones;
   public
+    constructor Create;
+    destructor Destroy; override;
+
     class function FromJsonString(const AJSONString: string): TPessoa;
 
     [MVCColumn('Id')]
@@ -66,6 +90,9 @@ Type
 
     [MVCColumn('CEP')]
     property CEP: string read Fcep write Fcep;
+
+//    [MVCListOfAttribute(TPessoaTelefone)]
+//    property Telefones: TPessoaTelefones read FTelefones write FTelefones;
   end;
 
 implementation
@@ -75,9 +102,29 @@ uses
 
 { TPessoa }
 
+constructor TPessoa.Create;
+begin
+  inherited Create;
+  FTelefones := TPessoaTelefones.Create;
+end;
+
+destructor TPessoa.Destroy;
+begin
+  FTelefones.Free;
+  inherited;
+end;
+
 class function TPessoa.FromJsonString(const AJSONString: string): TPessoa;
 begin
   Result := REST.Json.TJson.JsonToObject<TPessoa>(AJSONString);
+end;
+
+{ TPessoaTelefones }
+
+function TPessoaTelefones.Add: TPessoaTelefone;
+begin
+  Result := TPessoaTelefone.Create;
+  Self.Add(Result);
 end;
 
 end.

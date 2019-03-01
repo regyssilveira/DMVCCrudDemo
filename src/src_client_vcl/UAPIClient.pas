@@ -255,7 +255,7 @@ end;
 procedure TAPIClient.UpdatePessoa(const APessoa: TPessoa);
 begin
   Response := RESTClient
-                .Resource('/api/pessoa')
+                .Resource('/api/pessoa/' + APessoa.Id.ToString)
                 .doPUT<TPessoa>(APessoa, False);
 
   if FResponse.HasError then

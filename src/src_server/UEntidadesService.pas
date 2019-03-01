@@ -224,12 +224,23 @@ end;
 
 procedure TPessoaService.Post(const APessoa: TPessoa);
 const
-  SQL_INSERT: string =
+  SQL_INSERT_PESSOA: string =
     'INSERT INTO TB_PESSOA (                                  ' + sLineBreak +
     '  NOME, ENDERECO, NUMERO, BAIRRO, CIDADE, UF, CEP        ' + sLineBreak +
     ') VALUES (                                               ' + sLineBreak +
     '  :NOME, :ENDERECO, :NUMERO, :BAIRRO, :CIDADE, :UF, :CEP ' + sLineBreak +
     ')                                                        ' ;
+
+  SQL_INSERT_TELEFONE: string =
+    'INSERT INTO TB_PESSOA_TELEFONE (  ' + sLineBreak +
+    '  ID_PESSOA, TELEFONE, CONTATO    ' + sLineBreak +
+    ') VALUES (                        ' + sLineBreak +
+    '  :ID_PESSOA, :TELEFONE, :CONTATO ' + sLineBreak +
+    ');                                ' ;
+
+var
+  Telefone: TPessoaTelefone;
+
 begin
   // o ideal é utilizar um orm ao inves de datasets
 
@@ -254,7 +265,7 @@ begin
   if APessoa.cep.Trim.IsEmpty then
     raise EDatabaseError.Create('CEP não foi informado');
 
-  Self.FDConnection.ExecSQL(SQL_INSERT,
+  Self.FDConnection.ExecSQL(SQL_INSERT_PESSOA,
     [
       APessoa.Nome,
       APessoa.Endereco,
@@ -274,6 +285,23 @@ begin
       ftString
     ]
   );
+
+//  if APessoa.Telefones.Count > 0 then
+//  begin
+//    for Telefone in APessoa.Telefones do
+//    begin
+//      Self.FDConnection.ExecSQL(SQL_INSERT_PESSOA,
+//        [
+//          Telefone.Telefone,
+//          Telefone.Contato
+//        ],
+//        [
+//          ftString,
+//          ftString
+//        ]
+//      );
+//    end;
+//  end;
 end;
 
 procedure TPessoaService.Update(const APessoa: TPessoa);
