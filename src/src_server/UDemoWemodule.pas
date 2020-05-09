@@ -44,7 +44,6 @@ begin
   FMVC := TMVCEngine.Create(Self,
     procedure(Config: TMVCConfig)
     begin
-      Config[TMVCConfigKey.DocumentRoot]             := TPath.Combine(ExtractFilePath(GetModuleName(HInstance)), 'www');
       Config[TMVCConfigKey.SessionTimeout]           := '0';
       Config[TMVCConfigKey.DefaultContentType]       := TMVCConstants.DEFAULT_CONTENT_TYPE;
       Config[TMVCConfigKey.DefaultContentCharset]    := TMVCConstants.DEFAULT_CONTENT_CHARSET;
@@ -53,15 +52,15 @@ begin
       Config[TMVCConfigKey.ViewPath]                 := 'templates';
       Config[TMVCConfigKey.MaxEntitiesRecordCount]   := '20';
       Config[TMVCConfigKey.ExposeServerSignature]    := 'true';
-      Config[TMVCConfigKey.FallbackResource]         := 'index.html';
       Config[TMVCConfigKey.MaxRequestSize]           := IntToStr(TMVCConstants.DEFAULT_MAX_REQUEST_SIZE);
+
+      Config['redis_connection_string']              := '127.0.0.1:6379';
+      Config['redis_connection_key']                 := '';
     end);
 
   FMVC.AddController(TPessoaController);
 
   FMVC.AddMiddleware(TMVCCompressionMiddleware.Create);
-
-  FMVC.Config['redis_connection_string'] := '127.0.0.1:6379';
 
   FMVC.AddMiddleware(
     TMVCBasicAuthenticationMiddleware.Create(
